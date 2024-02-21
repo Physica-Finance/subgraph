@@ -4,18 +4,18 @@ import { Bundle, Pool, Token } from './../types/schema'
 import { BigDecimal, BigInt } from '@graphprotocol/graph-ts'
 import { exponentToBigDecimal, safeDiv } from '../utils/index'
 
-const WBNB_ADDRESS = '0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c'
-const USDC_WBNB_03_POOL = '0x6bcb0Ba386E9de0C29006e46B2f01f047cA1806E'
+const WPLQ_ADDRESS = '0x5EBCdf1De1781e8B5D41c016B0574aD53E2F6E1A'
+const USDC_WPLQ_03_POOL = '0xDC935D31C64648828e27C29fbce664DA3B31AF66'
 
 // token where amounts should contribute to tracked volume and liquidity
 // usually tokens that many tokens are paired with s
 export let WHITELIST_TOKENS: string[] = [
-  WBNB_ADDRESS,
+  WPLQ_ADDRESS,
 ]
 
 let STABLE_COINS: string[] = [
-  '0x55d398326f99059ff775485246999027b3197955', // USDT
-  '0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d', // USDC
+  '0xfD6fF17b542260f95660BBD71470Fe6eEC72801D', // USDT
+  '0x75E20C5d4aade76143b8b74d1C5E2865347f9d3B', // USDC
 ]
 
 let MINIMUM_ETH_LOCKED = BigDecimal.fromString('0')
@@ -35,7 +35,7 @@ export function sqrtPriceX96ToTokenPrices(sqrtPriceX96: BigInt, token0: Token, t
 
 export function getEthPriceInUSD(): BigDecimal {
   // fetch eth prices for each stablecoin
-  let usdcPool = Pool.load(USDC_WBNB_03_POOL) // usdc is token0
+  let usdcPool = Pool.load(USDC_WPLQ_03_POOL) // usdc is token0
   if (usdcPool !== null) {
     return usdcPool.token0Price
   } else {
@@ -47,8 +47,8 @@ export function getEthPriceInUSD(): BigDecimal {
  * Search through graph to find derived Eth per token.
  * @todo update to be derived ETH (add stablecoin estimates)
  **/
-export function findBnbPerToken(token: Token): BigDecimal {
-  if (token.id == WBNB_ADDRESS) {
+export function findPlqPerToken(token: Token): BigDecimal {
+  if (token.id == WPLQ_ADDRESS) {
     return ONE_BD
   }
   let whiteList = token.whitelistPools

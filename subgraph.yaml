@@ -8,11 +8,11 @@ features:
 dataSources:
   - kind: ethereum/contract
     name: Factory
-    network: bsc
+    network: planq
     source:
-      address: '0xdB1d10011AD0Ff90774D0C6Bb92e5C5c8b4461F7'
+      address: '0x37e59adF08C3b4C0B744Be41E26120DB9953d30c'
       abi: Factory
-      startBlock: 25605652
+      startBlock: 6115246
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -38,7 +38,7 @@ dataSources:
 templates:
   - kind: ethereum/contract
     name: Pool
-    network: bsc
+    network: planq
     source:
       abi: Pool
     mapping:

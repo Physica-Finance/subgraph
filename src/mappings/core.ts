@@ -11,7 +11,7 @@ import {
 } from '../types/templates/Pool/Pool'
 import { convertTokenToDecimal, loadTransaction, safeDiv } from '../utils'
 import { FACTORY_ADDRESS, ONE_BI, ZERO_BD, ZERO_BI } from '../utils/constants'
-import { findBnbPerToken, getEthPriceInUSD, getTrackedAmountUSD, sqrtPriceX96ToTokenPrices } from '../utils/pricing'
+import { findPlqPerToken, getEthPriceInUSD, getTrackedAmountUSD, sqrtPriceX96ToTokenPrices } from '../utils/pricing'
 import {
   updatePoolDayData,
   updatePoolHourData,
@@ -47,8 +47,8 @@ export function handleInitialize(event: Initialize): void {
   updatePoolHourData(event)
 
   // update token prices
-  token0.derivedETH = findBnbPerToken(token0 as Token)
-  token1.derivedETH = findBnbPerToken(token1 as Token)
+  token0.derivedETH = findPlqPerToken(token0 as Token)
+  token1.derivedETH = findPlqPerToken(token1 as Token)
   token0.save()
   token1.save()
 }
@@ -407,8 +407,8 @@ export function handleSwap(event: SwapEvent): void {
   // update USD pricing
   bundle.ethPriceUSD = getEthPriceInUSD()
   bundle.save()
-  token0.derivedETH = findBnbPerToken(token0 as Token)
-  token1.derivedETH = findBnbPerToken(token1 as Token)
+  token0.derivedETH = findPlqPerToken(token0 as Token)
+  token1.derivedETH = findPlqPerToken(token1 as Token)
 
   /**
    * Things afffected by new USD rates
